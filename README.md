@@ -17,40 +17,7 @@ This project only has two dependencies. (go-ethereum contains the EVM, and splas
 ## Install
 - `go get github.com/CryptoKass/levm`
 
-
-# ⏰ Quick start
-
-The Example is really short and it will be your best bet for getting started.
-
-- Install `go get github.com/CryptoKass/levm && go get github.com/CryptoKass/splashkeys && go get github.com/ethereum/go-ethereum` 
-- Then See Example at bottom of README.md
-
-# 🔨 Usage 
-
-**Basic Usage:**
-- Create a new LEVM instance: 
-    - `levm.New(dbPath string, blockNumber *big.Int, origin common.Address)`
-    - e.g. `lvm := levm.New("./db", big.NewInt(0), fromAddr)`
-- Load Contract Bin and ABi:
-    -  `tools.LoadContract(abiPath, binPath string)`
-    - e.g. `abiObject, binData, err := tools.LoadContract("contract/example_sol_Example.abi", "contract/example_sol_Example.bin")`
-- Deploy a contract:
-    - `lvm.DeployContract(fromAddr common.Address, contractData []byte)`
-    - e.g. `code, addr, gas, err := lvm.DeployContract(fromAddr, binData)`
-- Call a contract:
-    - `levm.CallContract(callerAddr, contractAddr common.Address, value *big.Int, inputs []byte)`
-    - e.g. `output, err := lvm.CallContract(fromAddr, addr, big.NewInt(0), inputs)`
-    - Inputs can be created using the ABI.Pack method using a loaded ABI (see contract loading above).
-
-
-**I reccommend you use the CallContractABI method to call contract methods by name.**
-
-- Call a contract using the ABI:
-    `CallContractABI(callerAddr, contractAddr common.Address, value *big.Int, abiObject abi.ABI, funcName string, args ...interface{})`
-
-
-
-# 📑 Example 
+## Example 
 This is Example is located in the example sub-directory:
 
 ```go
