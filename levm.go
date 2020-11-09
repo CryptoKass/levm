@@ -7,7 +7,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/params"
 
-	vmi "github.com/cryptokass/levm/vminterface"
+	vmi "github.com/sledro/levm/vminterface"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/state"
 	"github.com/ethereum/go-ethereum/core/vm"
