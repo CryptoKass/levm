@@ -10,11 +10,11 @@ I created this to make it a little easier to use the EVM in other projects, and 
 
 This project only has two dependencies. (go-ethereum contains the EVM, and splashkeys is an ecdsa key library)
 
-**`go get github.com/sledro/levm`**
+**`go get github.com/CryptoKass/levm`**
 
 ### Dependencies
 - `go get github.com/ethereum/go-ethereum`
-- `go get github.com/sledro/splashkeys`
+- `go get github.com/CryptoKass/splashkeys`
 
 <br>
 
