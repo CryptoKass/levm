@@ -1,11 +1,11 @@
 package vminterface
 
 import (
-	com "github.com/cryptokass/levm/common"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/rawdb"
 	"github.com/ethereum/go-ethereum/core/state"
 	"github.com/ethereum/go-ethereum/ethdb"
+	com "github.com/sledro/levm/common"
 )
 
 // NewStateDB - Create a new StateDB using levelDB instead of RAM
@@ -22,7 +22,7 @@ func NewStateDB(root common.Hash, dbPath string) (*state.StateDB, ethdb.Database
 	db := state.NewDatabase(edb)
 
 	// make statedb
-	stateDB, err := state.New(root, db)
+	stateDB, err := state.New(root, db, nil)
 	com.PanicErr(err)
 
 	return stateDB, edb
