@@ -19,21 +19,40 @@ func main() {
 	fromAddr = tools.NewRandomAddress()
 
 	//Load a contract from file
-	abiObject, binData, err := tools.LoadContract("contract/example_sol_Example.abi", "contract/example_sol_Example.bin")
-	fmt.Println("Abi\n", abiObject.Methods)
+	abiObject, binData, err := tools.LoadContract("./example/contract/example_sol_Example.abi", "./example/contract/example_sol_Example.bin")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Abi Methods: ", abiObject.Methods)
 
 	// create new LEVM instance
 	lvm := levm.New("./db", big.NewInt(0), fromAddr)
 
 	// create a new account and set the balance
 	// (needs enough balance to cover gas cost)
-	lvm.NewAccount(fromAddr, big.NewInt(1e18))
+	lvm.NewAccount(fromAddr, big.NewInt(5000000000000))
 
 	// deploy a contract
 	code, addr, gas, err := lvm.DeployContract(fromAddr, binData)
+	if err != nil {
+		fmt.Println(err)
+	}
 	fmt.Println("contract code length:", len(code))
 	fmt.Printf("contract address: %x\n", addr)
 	fmt.Println("unused gas:", gas)
-	fmt.Println("errors:", err)
+	fmt.Println("address:", lvm.GetAccount(fromAddr))
 
+	// call a contract: set
+	setOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(1), abiObject, "set", big.NewInt(1))
+	if err != nil {
+		fmt.Println("set error : ", err)
+	}
+	fmt.Println("set output:", setOutput)
+
+	// call a contract: get
+	getOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(1), abiObject, "get")
+	if err != nil {
+		fmt.Println("get error : ", err)
+	}
+	fmt.Println("get output:", getOutput)
 }
