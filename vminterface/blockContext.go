@@ -13,13 +13,11 @@ import (
 
 // NewVMContext will construct a new EVM Context with default values.
 // TODO: include gas price variable in params
-func NewVMContext(origin common.Address, coinbase common.Address, blockNum *big.Int, chainContext ChainContext) vm.Context {
-	return vm.Context{
+func NewBlockContext(origin common.Address, coinbase common.Address, blockNum *big.Int, chainContext ChainContext) vm.BlockContext {
+	return vm.BlockContext{
 		CanTransfer: CanTransfer,
 		Transfer:    Transfer,
 		GetHash:     core.GetHashFn(chainContext.GetHeader(sha256.Sum256([]byte("")), 0), chainContext),
-		Origin:      origin,
-		GasPrice:    big.NewInt(1),
 		Coinbase:    coinbase,
 		GasLimit:    uint64(1000000),
 		BlockNumber: blockNum,

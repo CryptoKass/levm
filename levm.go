@@ -7,11 +7,11 @@ import (
 
 	"github.com/ethereum/go-ethereum/params"
 
-	vmi "github.com/cryptokass/levm/vminterface"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/state"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/ethdb"
+	vmi "github.com/sledro/levm/vminterface"
 )
 
 // LEVM is a container for the go-ethereum EVM
@@ -50,15 +50,14 @@ func (lvm *LEVM) NewEVM(blockNumber *big.Int, origin common.Address) {
 
 	// create contexted for the evm context
 	chainContext := vmi.NewChainContext(origin)
-	vmContext := vmi.NewVMContext(origin, origin, blockNumber, chainContext)
+	blockContext := vmi.NewBlockContext(origin, origin, blockNumber, chainContext)
+	txContext := vmi.NewTxContext(origin)
 
 	// create vm config
-	logConfig := vm.LogConfig{}
-	structLogger := vm.NewStructLogger(&logConfig)
-	vmConfig := vm.Config{Debug: true, Tracer: structLogger /*JumpTable: vm.NewByzantiumInstructionSet()*/}
+	vmConfig := vm.Config{Debug: true}
 
 	// create the evm
-	lvm.evm = vm.NewEVM(vmContext, lvm.stateDB, params.MainnetChainConfig, vmConfig)
+	lvm.evm = vm.NewEVM(blockContext, txContext, lvm.stateDB, params.MainnetChainConfig, vmConfig)
 }
 
 // DeployContract will create and deploy a new

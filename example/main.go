@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/cryptokass/levm"
+	"github.com/sledro/levm"
 
-	"github.com/cryptokass/levm/tools"
+	"github.com/sledro/levm/tools"
 )
 
 var (

@@ -17,7 +17,7 @@ func NewStateDB(root common.Hash, dbPath string) (*state.StateDB, ethdb.Database
 	com.PanicErr(err)
 	*/
 
-	edb, _ := rawdb.NewLevelDBDatabase(dbPath, 100, 100, "")
+	edb, _ := rawdb.NewLevelDBDatabase(dbPath, 100, 100, "", false)
 	//edb := rawdb.NewMemoryDatabase()
 	db := state.NewDatabase(edb)
 
