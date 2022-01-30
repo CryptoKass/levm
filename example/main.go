@@ -19,7 +19,7 @@ func main() {
 	fromAddr = tools.NewRandomAddress()
 
 	//Load a contract from file
-	abiObject, binData, err := tools.LoadContract("./example/contract/example_sol_Example.abi", "./example/contract/example_sol_Example.bin")
+	abiObject, binData, err := tools.LoadContract("./contract/example_sol_Example.abi", "./contract/example_sol_Example.bin")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -43,14 +43,14 @@ func main() {
 	fmt.Println("address:", lvm.GetAccount(fromAddr))
 
 	// call a contract: set
-	setOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(1), abiObject, "set", big.NewInt(1))
+	setOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(0), abiObject, "set", big.NewInt(1))
 	if err != nil {
 		fmt.Println("set error : ", err)
 	}
 	fmt.Println("set output:", setOutput)
 
 	// call a contract: get
-	getOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(1), abiObject, "get")
+	getOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(0), abiObject, "get")
 	if err != nil {
 		fmt.Println("get error : ", err)
 	}

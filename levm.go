@@ -4,13 +4,13 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
-
-	"github.com/ethereum/go-ethereum/params"
-
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/state"
 	"github.com/ethereum/go-ethereum/core/vm"
+	"github.com/ethereum/go-ethereum/eth/tracers/logger"
 	"github.com/ethereum/go-ethereum/ethdb"
+	"github.com/ethereum/go-ethereum/params"
+
 	vmi "github.com/sledro/levm/vminterface"
 )
 
@@ -53,8 +53,10 @@ func (lvm *LEVM) NewEVM(blockNumber *big.Int, origin common.Address) {
 	blockContext := vmi.NewBlockContext(origin, origin, blockNumber, chainContext)
 	txContext := vmi.NewTxContext(origin)
 
+	tcr := logger.NewStructLogger(&logger.Config{})
+
 	// create vm config
-	vmConfig := vm.Config{Debug: true}
+	vmConfig := vm.Config{Debug: true, Tracer: tcr}
 
 	// create the evm
 	lvm.evm = vm.NewEVM(blockContext, txContext, lvm.stateDB, params.MainnetChainConfig, vmConfig)
