@@ -26,7 +26,7 @@ func main() {
 	fmt.Println("Abi Methods: ", abiObject.Methods)
 
 	// create new LEVM instance
-	lvm := levm.New("./db", big.NewInt(0), fromAddr)
+	lvm := levm.New("./db", big.NewInt(8000000), fromAddr)
 
 	// create a new account and set the balance
 	// (needs enough balance to cover gas cost)
@@ -43,14 +43,14 @@ func main() {
 	fmt.Println("address:", lvm.GetAccount(fromAddr))
 
 	// call a contract: set
-	setOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(0), abiObject, "set", big.NewInt(1))
+	setOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(0), abiObject, "SetValA", big.NewInt(1))
 	if err != nil {
 		fmt.Println("set error : ", err)
 	}
 	fmt.Println("set output:", setOutput)
 
 	// call a contract: get
-	getOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(0), abiObject, "get")
+	getOutput, err := lvm.CallContractABI(fromAddr, addr, big.NewInt(0), abiObject, "vala")
 	if err != nil {
 		fmt.Println("get error : ", err)
 	}

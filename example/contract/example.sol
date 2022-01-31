@@ -1,14 +1,15 @@
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.4.16 <0.8.0;
+pragma solidity 0.5.8;  //The lowest compiler version
 
 contract Example {
-    uint storedData;
-
-    function set(uint x) public {
-        storedData = x;
+    
+    int public vala;
+    int public valb;
+    
+    function SetValA(int a) public {
+        vala = a;
     }
-
-    function get() public view returns (uint) {
-        return storedData;
+    
+    function SetValB(int b) public {
+        valb = b;
     }
 }

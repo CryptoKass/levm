@@ -56,7 +56,7 @@ func (lvm *LEVM) NewEVM(blockNumber *big.Int, origin common.Address) {
 	tcr := logger.NewStructLogger(&logger.Config{})
 
 	// create vm config
-	vmConfig := vm.Config{Debug: true, Tracer: tcr}
+	vmConfig := vm.Config{Debug: true, Tracer: tcr, ExtraEips: []int{150, 1052, 1884}, NoBaseFee: true}
 
 	// create the evm
 	lvm.evm = vm.NewEVM(blockContext, txContext, lvm.stateDB, params.MainnetChainConfig, vmConfig)
